@@ -12,6 +12,10 @@
     "client": "cd client && npm start",
     "install": "concurrently \"cd client && npm install\" \"cd server && npm install\" "
   },
+  "engines": {
+    "node": "16.17.0"
+  },
+  "heroku-prebuild": "npm install --dev",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pmacdonald07/contact-card.git"
