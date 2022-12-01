@@ -1,8 +1,6 @@
-import "./form";
-import "./submit";
-import { initDB } from "./database";
-import { getDb } from "./database";
-import { postDB } from "./database";
+import { clearForm, toggleForm } from "./form";
+import { initDB, getDB, postDB } from "./database";
+import { fetchCards } from "./cards";
 
 import "../css/index.css";
 
@@ -19,4 +17,39 @@ window.addEventListener("load", function () {
   document.getElementById("logo").src = Logo;
   document.getElementById("bearThumbnail").src = Bear;
   document.getElementById("dogThumbnail").src = Dog;
+});
+
+// Form functionality
+const form = document.getElementById("formToggle");
+const newContactButton = document.getElementById("new-contact");
+let submitBtnToUpdate = false;
+let profileId;
+
+newContactButton.addEventListener("click", (event) => {
+  toggleForm();
+});
+
+form.addEventListener("submit", (event) => {
+  // Handle data
+  event.preventDefault();
+  let name = document.getElementById("name").value;
+  let phone = document.getElementById("phone").value;
+  let email = document.getElementById("email").value;
+  let profile = document.querySelector('input[type="radio"]:checked').value;
+
+  // Post form data to IndexedDB OR Edit an existing card in IndexedDB
+  if (submitBtnToUpdate == false) {
+    postDB(name, email, phone, profile);
+  } else {
+    fetchCards();
+    // Toggles the submit button back to POST functionality
+    submitBtnToUpdate = false;
+  }
+
+  // Clear form
+  clearForm();
+  // Toggle form
+  toggleForm();
+  // Reload the DOM
+  fetchCards();
 });

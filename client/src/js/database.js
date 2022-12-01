@@ -17,7 +17,7 @@ export const initDB = async () => {
   });
 };
 
-export const getDb = async () => {
+export const getDB = async () => {
   console.log("GET from the database");
   const contactDB = await openDB("contact_db", 1);
   const tx = contactDB.transaction("contacts", "readonly");
