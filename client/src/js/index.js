@@ -1,5 +1,5 @@
 import { clearForm, toggleForm } from "./form";
-import { initDB, getDB, postDB } from "./database";
+import { initDB, getDB, postDB, deleteDB } from "./database";
 import { fetchCards } from "./cards";
 
 import "../css/index.css";
@@ -13,6 +13,7 @@ import Dog from "../images/dog.png";
 
 window.addEventListener("load", function () {
   initDB();
+  fetchCards();
 
   document.getElementById("logo").src = Logo;
   document.getElementById("bearThumbnail").src = Bear;
@@ -53,3 +54,10 @@ form.addEventListener("submit", (event) => {
   // Reload the DOM
   fetchCards();
 });
+
+window.deleteCard = (e) => {
+  // Grabs the id from the button element attached to the contact card.
+  let id = parseInt(e.id);
+  deleteDB(id);
+  fetchCards();
+};
